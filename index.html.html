@@ -1,0 +1,516 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Administradora de Parques Zona Franca Génesis</title>
+  <meta name="description" content="Landing corporativa para Administradora de Parques Zona Franca Génesis. Espacios estratégicos en Costa Rica bajo el Régimen de Zona Franca." />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --bg:#0b0b0b;           /* negro profundo */
+      --card:#121212;         /* gris carbón */
+      --accent:#e86e1c;       /* naranja principal */
+      --accent-2:#ffb169;     /* naranja claro para hover */
+      --muted:#a3a3a3;        /* gris texto secundario */
+      --text:#f5f5f5;         /* texto principal */
+      --ring: rgba(232,110,28,.45);
+      --radius:14px;
+      --shadow: 0 10px 30px rgba(0,0,0,.25);
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{margin:0;background:var(--bg);color:var(--text);font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;line-height:1.6;overflow-x:hidden}
+    img{max-width:100%;display:block}
+    a{color:inherit;text-decoration:none}
+    .container{max-width:1200px;margin:0 auto;padding:0 24px}
+
+    /* ---------- NAV ---------- */
+    .nav{position:sticky;top:0;z-index:1000;background:rgba(11,11,11,.7);backdrop-filter:saturate(160%) blur(12px);border-bottom:1px solid rgba(255,255,255,.06)}
+    .nav-wrap{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:14px 0}
+    .brand{display:flex;align-items:center;gap:12px}
+    .brand-badge{width:40px;height:40px;border-radius:12px;background:linear-gradient(135deg,var(--accent),#9d4710);display:grid;place-items:center;box-shadow:0 8px 20px var(--ring)}
+    .brand-badge span{font-weight:800;color:white}
+    .brand-title{font-family:'Playfair Display', serif;font-weight:700;font-size:18px;letter-spacing:.2px}
+
+    .menu{display:flex;gap:10px;align-items:center}
+    .menu a{padding:10px 14px;border-radius:999px;font-weight:600;color:#eaeaea;border:1px solid transparent;transition:background .25s,border-color .25s,color .25s,transform .25s}
+    .menu a:hover{border-color:rgba(255,255,255,.12);background:var(--accent);color:#fff;transform:translateY(-1px)}
+
+    .cta{padding:10px 18px;border-radius:999px;background:var(--accent);font-weight:700;border:none;cursor:pointer;box-shadow:0 8px 24px var(--ring);transition:.25s}
+    .cta:hover{transform:translateY(-2px);background:var(--accent-2)}
+
+    /* Mobile menu */
+    .hamburger{display:none;cursor:pointer;border:1px solid rgba(255,255,255,.12);border-radius:12px;padding:8px}
+    .mobile-panel{display:none}
+
+    @media (max-width: 900px){
+      .menu{display:none}
+      .hamburger{display:block}
+      .mobile-panel{display:block;border-top:1px solid rgba(255,255,255,.06);padding:12px 0}
+      .mobile-panel a{display:block;padding:12px 16px;border-radius:10px;transition:background .25s,color .25s}
+      .mobile-panel a:hover{background:rgba(232,110,28,.12);color:#fff}
+      .mobile-hidden{display:none}
+    }
+
+    /* ---------- HERO (con PARALLAX) ---------- */
+    .hero{position:relative;isolation:isolate}
+    .hero-media{position:absolute;inset:0;z-index:-1;overflow:hidden;opacity:.55}
+    .hero-media img{width:100%;height:120%;object-fit:cover;filter:grayscale(.2) contrast(1.05);transform:translateY(0);transition:transform .2s linear}
+    .hero-overlay{position:absolute;inset:0;background:linear-gradient(180deg, rgba(0,0,0,.45) 0%, rgba(0,0,0,.75) 55%, rgba(0,0,0,.9) 100%)}
+    .hero-inner{padding:108px 0 84px}
+    .eyebrow{display:inline-block;padding:6px 12px;border-radius:999px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.12);font-weight:600;color:#dcdcdc}
+    h1{font-family:'Playfair Display', serif;font-size:clamp(36px,5vw,56px);line-height:1.1;margin:18px 0}
+    .lead{color:#ddd;max-width:800px}
+
+    .hero-cta{display:flex;gap:12px;flex-wrap:wrap;margin-top:24px}
+    .btn{display:inline-flex;align-items:center;gap:10px;padding:12px 18px;border-radius:999px;border:1px solid rgba(255,255,255,.12);font-weight:700;cursor:pointer;transition:.25s}
+    .btn-primary{background:var(--accent);box-shadow:0 10px 30px var(--ring)}
+    .btn-primary:hover{background:var(--accent-2);transform:translateY(-2px)}
+    .btn-secondary:hover{background:rgba(255,255,255,.06);border-color:var(--accent);color:#fff}
+
+    /* Sections */
+    section{scroll-margin-top:80px}
+    .section{padding:84px 0}
+    .section-title{font-family:'Playfair Display', serif;font-size:clamp(28px,3.2vw,40px);margin:0 0 18px}
+    .section-sub{color:var(--muted);margin-bottom:28px;max-width:860px}
+
+    /* Why choose us */
+    .grid-why{display:grid;grid-template-columns:1.3fr .9fr;gap:24px}
+    .why-card{background:linear-gradient(180deg,#1a1a1a, #141414);border:1px solid rgba(255,255,255,.06);border-radius:var(--radius);box-shadow:var(--shadow);padding:28px}
+    .why-list{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;margin-top:16px}
+    .chip{display:inline-flex;align-items:center;gap:10px;padding:10px 12px;border-radius:12px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.09);font-weight:600;transition:transform .25s, background .25s}
+    .chip:hover{background:rgba(232,110,28,.12);transform:translateY(-2px)}
+
+    @media (max-width: 900px){.grid-why{grid-template-columns:1fr}}
+
+    /* Presence */
+    .parks{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
+    .park{background:#141414;border:1px solid rgba(255,255,255,.06);border-radius:16px;overflow:hidden;box-shadow:var(--shadow);transition:transform .3s, box-shadow .3s;perspective:800px}
+    .park:hover{transform:translateY(-5px) scale(1.01);box-shadow:0 18px 50px rgba(0,0,0,.35)}
+    .park img{height:170px;object-fit:cover;transform:translateZ(0) scale(1.03);transition:transform .25s ease}
+    .park:hover img{transform:rotateX(4deg) rotateY(-4deg) scale(1.08)}
+    .park .info{padding:14px}
+    .badge{display:inline-block;background:rgba(232,110,28,.12);color:#ffd7b5;border:1px solid rgba(232,110,28,.35);padding:6px 10px;border-radius:999px;font-size:12px;font-weight:700}
+    @media (max-width: 900px){.parks{grid-template-columns:1fr}}
+
+    /* Services */
+    .services{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
+    .service{background:linear-gradient(180deg,#171717,#111);border:1px solid rgba(255,255,255,.06);border-radius:16px;padding:24px;box-shadow:var(--shadow);transform:translateY(0);transition:transform .35s}
+    .service:hover{transform:translateY(-6px)}
+    .service h4{margin:6px 0 6px}
+    .service p{color:#cfcfcf;margin:0}
+    @media (max-width: 900px){.services{grid-template-columns:1fr}}
+
+    /* Logos carousel */
+    .logos-wrap{position:relative;overflow:hidden;border:1px solid rgba(255,255,255,.06);border-radius:16px;background:linear-gradient(180deg,#121212,#0f0f0f)}
+    .logos{display:flex;gap:48px;align-items:center;padding:22px;animation: marquee 30s linear infinite;will-change:transform}
+    .logos img{height:44px;opacity:.9;filter:grayscale(100%) contrast(1.15);transition:.25s}
+    .logos img:hover{filter:none;opacity:1}
+    .logos-wrap:hover .logos{animation-play-state:paused}
+    @keyframes marquee{from{transform:translateX(0)} to{transform:translateX(-50%)} }
+
+    /* Blog/resources */
+    .cards{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
+    .card{background:#141414;border:1px solid rgba(255,255,255,.06);border-radius:16px;overflow:hidden;box-shadow:var(--shadow);display:flex;flex-direction:column}
+    .card img{height:160px;object-fit:cover;transform:scale(1.02);transition:transform .4s ease}
+    .card:hover img{transform:scale(1.08)}
+    .card .body{padding:18px}
+    .card .body p{color:#d7d7d7}
+
+    @media (max-width: 900px){.cards{grid-template-columns:1fr}}
+
+    /* Contact */
+    .contact{display:grid;grid-template-columns:1.1fr .9fr;gap:24px}
+    .form{background:linear-gradient(180deg,#171717,#101010);border:1px solid rgba(255,255,255,.06);border-radius:16px;padding:22px;box-shadow:var(--shadow)}
+    label{display:block;margin-bottom:6px;color:#e9e9e9;font-weight:600}
+    input,textarea{width:100%;padding:14px 14px;border-radius:12px;border:1px solid rgba(255,255,255,.12);background:#0f0f0f;color:#fff;outline:none;transition:border-color .2s, box-shadow .2s}
+    input:focus,textarea:focus{border-color:var(--accent);box-shadow:0 0 0 4px var(--ring)}
+    textarea{min-height:120px;resize:vertical}
+    .form .row{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+    @media (max-width: 900px){.contact{grid-template-columns:1fr}.form .row{grid-template-columns:1fr}}
+
+    /* Footer */
+    footer{border-top:1px solid rgba(255,255,255,.08);padding:28px 0;color:#c8c8c8}
+
+    /* ---------- Scroll Animations (AOS-like sin librerías) ---------- */
+    .reveal{opacity:0;transform:translateY(24px) scale(.98);filter:blur(3px)}
+    .reveal.visible{opacity:1;transform:none;filter:none;transition:opacity .9s cubic-bezier(.2,.65,.2,1), transform .9s cubic-bezier(.2,.65,.2,1), filter .9s}
+    .reveal[data-anim="up"]{transform:translateY(28px)}
+    .reveal[data-anim="right"]{transform:translateX(-28px)}
+    .reveal[data-anim="left"]{transform:translateX(28px)}
+    .reveal[data-anim="zoom"]{transform:scale(.94)}
+
+    /* Respeta preferencias de accesibilidad */
+    @media (prefers-reduced-motion: reduce){
+      .logos{animation:none}
+      .reveal,.reveal.visible{transition:none}
+      .park img,.card img{transition:none}
+    }
+  </style>
+</head>
+<body>
+  <!-- NAV -->
+  <nav class="nav" aria-label="Principal">
+    <div class="container">
+      <div class="nav-wrap">
+        <div class="brand">
+          <div class="brand-badge" aria-hidden="true"><span>G</span></div>
+          <div class="brand-title">Zona Franca Génesis</div>
+        </div>
+        <div class="menu" role="menubar">
+          <a href="#inicio" role="menuitem">Inicio</a>
+          <a href="#porque" role="menuitem">¿Por qué elegirnos?</a>
+          <a href="#presencia" role="menuitem">Presencia</a>
+          <a href="#servicios" role="menuitem">Servicios</a>
+          <a href="#empresas" role="menuitem">Empresas</a>
+          <a href="#blog" role="menuitem">Recursos</a>
+          <a href="#contacto" role="menuitem">Contacto</a>
+          <button class="cta" onclick="scrollToId('contacto')">Agenda una visita</button>
+        </div>
+        <button id="hamburger" class="hamburger" aria-label="Abrir menú">☰</button>
+      </div>
+      <div id="mobilePanel" class="mobile-panel mobile-hidden">
+        <a href="#inicio">Inicio</a>
+        <a href="#porque">¿Por qué elegirnos?</a>
+        <a href="#presencia">Presencia</a>
+        <a href="#servicios">Servicios</a>
+        <a href="#empresas">Empresas</a>
+        <a href="#blog">Recursos</a>
+        <a href="#contacto">Contacto</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <header id="inicio" class="hero">
+    <div class="hero-media" aria-hidden="true">
+      <!-- Imagen temporal libre de uso (Unsplash). Luego reemplázala por una propia. -->
+      <img id="heroImg" src="https://i0.wp.com/www.simecr.com/wp-content/uploads/2021/10/DJI_0103-e1634228852778.jpg?ssl=1" alt="Parques empresariales y zonas francas en Costa Rica" />
+      <div class="hero-overlay"></div>
+    </div>
+    <div class="container hero-inner">
+      <span class="eyebrow reveal" data-anim="up">Espacios estratégicos para crecer</span>
+      <h1 class="reveal" data-anim="up">Donde las grandes ideas encuentran el espacio para crecer.</h1>
+      <p class="lead reveal" data-anim="up">Un entorno flexible, confiable y conectado para impulsar el éxito de tu empresa bajo el <strong>Régimen de Zona Franca</strong> en Costa Rica.</p>
+      <div class="hero-cta reveal" data-anim="up" style="--delay:.12s">
+        <a class="btn btn-primary" href="#contacto" aria-label="Agendar una visita">Agenda una visita</a>
+        <a class="btn btn-secondary" href="#porque" aria-label="Ver por qué elegirnos">¿Por qué elegirnos?</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- WHY -->
+  <section id="porque" class="section container">
+    <h2 class="section-title reveal" data-anim="up">¿Por qué elegirnos?</h2>
+    <p class="section-sub reveal" data-anim="up">Unimos <strong>ubicación privilegiada</strong>, <strong>beneficios fiscales</strong> y un <strong>enfoque humano</strong> para ofrecerte más que un espacio: somos tu aliado estratégico en cada etapa del proceso.</p>
+    <div class="grid-why">
+      <div class="why-card reveal" data-anim="left">
+        <h3>Ventajas que impulsan tu inversión</h3>
+        <div class="why-list" aria-label="Lista de ventajas">
+          <div class="chip">Régimen de Zona Franca con exoneraciones clave</div>
+          <div class="chip">Asesoría personalizada en instalación y operación</div>
+          <div class="chip">Acceso a talento calificado y servicios complementarios</div>
+          <div class="chip">Compromiso con sostenibilidad e innovación</div>
+        </div>
+        <div style="margin-top:18px"><button class="cta" onclick="scrollToId('contacto')">Contáctanos</button></div>
+      </div>
+      <div class="why-card reveal" data-anim="right">
+        <img src="https://images.unsplash.com/photo-1538688423619-a81d3f23454b?q=80&w=1200&auto=format&fit=crop" alt="Empresas trabajando en oficinas modernas" />
+      </div>
+    </div>
+  </section>
+
+  <!-- PRESENCE -->
+  <section id="presencia" class="section container">
+    <h2 class="section-title reveal" data-anim="up">Presencia estratégica</h2>
+    <p class="section-sub reveal" data-anim="up">Cerca del talento, la logística y, sobre todo, del crecimiento.</p>
+    <div class="parks" id="parks">
+      <!-- Imágenes temporales (Unsplash) para visualización -->
+      <article class="park reveal" data-anim="zoom">
+        <img src="https://images.unsplash.com/photo-1520607162513-77705c0f0d4a?q=80&w=1200&auto=format&fit=crop" alt="Centro Corporativo Tobogán" />
+        <div class="info">
+          <div class="badge">San José</div>
+          <h4>Centro Corporativo Tobogán</h4>
+          <p>Ideal para operaciones administrativas en zona de alto dinamismo comercial.</p>
+        </div>
+      </article>
+      <article class="park reveal" data-anim="zoom">
+        <img src="https://images.unsplash.com/photo-1509395176047-4a66953fd231?q=80&w=1200&auto=format&fit=crop" alt="Aerocentro" />
+        <div class="info">
+          <div class="badge">Alajuela</div>
+          <h4>Aerocentro</h4>
+          <p>Ubicación estratégica cerca del Aeropuerto Internacional.</p>
+        </div>
+      </article>
+      <article class="park reveal" data-anim="zoom">
+        <img src="https://images.unsplash.com/photo-1529421308418-4e45c2f4c3a3?q=80&w=1200&auto=format&fit=crop" alt="Oficentro Mediterráneo" />
+        <div class="info">
+          <div class="badge">San José</div>
+          <h4>Oficentro Mediterráneo</h4>
+          <p>Moderno y accesible, ideal para empresas de servicios.</p>
+        </div>
+      </article>
+      <article class="park reveal" data-anim="zoom">
+        <img src="https://images.unsplash.com/photo-1507209696998-3c532be9b2b0?q=80&w=1200&auto=format&fit=crop" alt="Torre La Sabana" />
+        <div class="info">
+          <div class="badge">San José</div>
+          <h4>Torre La Sabana</h4>
+          <p>Presencia corporativa con prestigio en el corazón de la capital.</p>
+        </div>
+      </article>
+      <article class="park reveal" data-anim="zoom">
+        <img src="https://images.unsplash.com/photo-1529429612776-191f2f5f2f5b?q=80&w=1200&auto=format&fit=crop" alt="Multipark" />
+        <div class="info">
+          <div class="badge">Guachipelín</div>
+          <h4>Multipark</h4>
+          <p>Ecosistema empresarial verde y vanguardista.</p>
+        </div>
+      </article>
+      <article class="park reveal" data-anim="zoom">
+        <img src="https://images.unsplash.com/photo-1554469384-e58fac16e23a?q=80&w=1200&auto=format&fit=crop" alt="Forum" />
+        <div class="info">
+          <div class="badge">Santa Ana</div>
+          <h4>Forum</h4>
+          <p>Clúster consolidado, ideal para operaciones de tecnología y back‑office.</p>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <!-- SERVICES -->
+  <section id="servicios" class="section container">
+    <h2 class="section-title reveal" data-anim="up">Nuestros servicios</h2>
+    <p class="section-sub reveal" data-anim="up">Nos adaptamos a tus necesidades.</p>
+    <div class="services">
+      <div class="service reveal" data-anim="left">
+        <h4>Seguridad 24/7 y monitoreo</h4>
+        <p>Protocolos robustos, CCTV y controles de acceso para proteger tus operaciones.</p>
+      </div>
+      <div class="service reveal" data-anim="up">
+        <h4>Asistencia en trámites</h4>
+        <p>Acompañamiento en procesos ante entidades gubernamentales y municipales.</p>
+      </div>
+      <div class="service reveal" data-anim="right">
+        <h4>Asesoría en el Régimen de Zonas Francas</h4>
+        <p>Viabilidad, solicitud de régimen, cumplimiento y auditorías.</p>
+      </div>
+    </div>
+    <div style="margin-top:18px" class="reveal" data-anim="up"><button class="cta" onclick="scrollToId('contacto')">Solicitar asesoría</button></div>
+  </section>
+
+  <!-- LOGOS -->
+  <section id="empresas" class="section container">
+    <h2 class="section-title reveal" data-anim="up">Empresas que confían en nosotros</h2>
+    <div class="logos-wrap reveal" data-anim="zoom" aria-label="Carrusel de logotipos de clientes">
+      <div class="logos" id="logos">
+        <!-- Reemplaza por tus logotipos (duplicados para efecto infinito) -->
+        <img src="https://dummyimage.com/160x44/ffffff/000000.png&text=Western+Union" alt="Western Union" />
+        <img src="https://dummyimage.com/120x44/ffffff/000000.png&text=Infosys" alt="Infosys" />
+        <img src="https://dummyimage.com/120x44/ffffff/000000.png&text=WNS" alt="WNS" />
+        <img src="https://dummyimage.com/140x44/ffffff/000000.png&text=Aerocentro" alt="Aerocentro" />
+        <img src="https://dummyimage.com/140x44/ffffff/000000.png&text=Tobog%C3%A1n" alt="Centro Corporativo Tobogán" />
+        <img src="https://dummyimage.com/120x44/ffffff/000000.png&text=La+Sabana" alt="La Sabana" />
+        <img src="https://dummyimage.com/120x44/ffffff/000000.png&text=Oracle" alt="Oracle" />
+        <img src="https://dummyimage.com/140x44/ffffff/000000.png&text=Convera" alt="Convera" />
+        <!-- duplicado -->
+        <img src="https://dummyimage.com/160x44/ffffff/000000.png&text=Western+Union" alt="Western Union" />
+        <img src="https://dummyimage.com/120x44/ffffff/000000.png&text=Infosys" alt="Infosys" />
+        <img src="https://dummyimage.com/120x44/ffffff/000000.png&text=WNS" alt="WNS" />
+        <img src="https://dummyimage.com/140x44/ffffff/000000.png&text=Aerocentro" alt="Aerocentro" />
+        <img src="https://dummyimage.com/140x44/ffffff/000000.png&text=Tobog%C3%A1n" alt="Centro Corporativo Tobogán" />
+        <img src="https://dummyimage.com/120x44/ffffff/000000.png&text=La+Sabana" alt="La Sabana" />
+        <img src="https://dummyimage.com/120x44/ffffff/000000.png&text=Oracle" alt="Oracle" />
+        <img src="https://dummyimage.com/140x44/ffffff/000000.png&text=Convera" alt="Convera" />
+      </div>
+    </div>
+  </section>
+
+  <!-- BLOG / RESOURCES -->
+  <section id="blog" class="section container">
+    <h2 class="section-title reveal" data-anim="up">Información que impulsa decisiones</h2>
+    <p class="section-sub reveal" data-anim="up">Recursos y artículos para entender el régimen y maximizar tu inversión.</p>
+    <div class="cards">
+      <article class="card reveal" data-anim="up">
+        <img src="https://images.unsplash.com/photo-1560179707-f14e90ef4178?q=80&w=1200&auto=format&fit=crop" alt="¿Qué es una Zona Franca?" />
+        <div class="body">
+          <h4>¿Qué es una Zona Franca y por qué es vital para la expansión internacional?</h4>
+          <p>Marco general del régimen, requisitos y oportunidades para nuevos proyectos.</p>
+          <a class="btn btn-secondary" href="#" aria-label="Leer artículo zona franca">Leer más</a>
+        </div>
+      </article>
+      <article class="card reveal" data-anim="up">
+        <img src="https://images.unsplash.com/photo-1542744094-24638eff58bb?q=80&w=1200&auto=format&fit=crop" alt="Ventajas fiscales" />
+        <div class="body">
+          <h4>Ventajas fiscales explicadas: cómo maximizar tu inversión</h4>
+          <p>Incentivos, exoneraciones y mejores prácticas de cumplimiento.</p>
+          <a class="btn btn-secondary" href="#" aria-label="Leer artículo ventajas fiscales">Leer más</a>
+        </div>
+      </article>
+      <article class="card reveal" data-anim="up">
+        <img src="https://images.unsplash.com/photo-1499750310107-5fef28a66643?q=80&w=1200&auto=format&fit=crop" alt="Preguntas frecuentes" />
+        <div class="body">
+          <h4>Preguntas frecuentes</h4>
+          <p>Respuestas claras sobre ingreso al régimen, operaciones y auditorías.</p>
+          <a class="btn btn-secondary" href="#" aria-label="Leer preguntas frecuentes">Leer más</a>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contacto" class="section container">
+    <h2 class="section-title reveal" data-anim="up">Contáctanos</h2>
+    <p class="section-sub reveal" data-anim="up">Comienza hoy tu transformación empresarial.</p>
+    <div class="contact">
+      <form class="form reveal" data-anim="left" id="contactForm" onsubmit="return submitContact(event)">
+        <div class="row">
+          <div>
+            <label for="name">Nombre</label>
+            <input id="name" name="name" placeholder="Nombre completo" required />
+          </div>
+          <div>
+            <label for="company">Empresa</label>
+            <input id="company" name="company" placeholder="Nombre de la empresa" />
+          </div>
+        </div>
+        <div class="row">
+          <div>
+            <label for="email">Correo electrónico</label>
+            <input id="email" name="email" type="email" placeholder="tucorreo@empresa.com" required />
+          </div>
+          <div>
+            <label for="phone">Teléfono (opcional)</label>
+            <input id="phone" name="phone" placeholder="+506 ..." />
+          </div>
+        </div>
+        <div style="margin-top:10px">
+          <label for="message">Mensaje</label>
+          <textarea id="message" name="message" placeholder="Cuéntanos sobre tu proyecto"></textarea>
+        </div>
+        <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:16px">
+          <button class="cta" type="submit">Enviar</button>
+          <a id="whatsBtn" class="btn btn-secondary" href="#" target="_blank" rel="noopener">WhatsApp</a>
+        </div>
+        <p id="formMsg" style="margin-top:10px;color:#b7ffbe;display:none">¡Gracias! Hemos preparado tu correo, revísalo antes de enviar.</p>
+      </form>
+      <div class="reveal" data-anim="right" style="border-radius:16px;overflow:hidden;height:100%">
+        <iframe title="Mapa" src="https://www.google.com/maps?q=San+José+Costa+Rica&output=embed" width="100%" height="100%" style="min-height:360px;border:0"></iframe>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="container" style="display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap">
+      <div>© <span id="year"></span> Administradora de Parques Zona Franca Génesis. Todos los derechos reservados.</div>
+      <div style="color:#9d9d9d">Hecho con excelencia en Costa Rica.</div>
+    </div>
+  </footer>
+
+  <script>
+    // Año en footer
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // Mobile menu toggle
+    const hamb = document.getElementById('hamburger');
+    const panel = document.getElementById('mobilePanel');
+    if(hamb){
+      hamb.addEventListener('click',()=> panel.classList.toggle('mobile-hidden'));
+    }
+
+    // Smooth scroll helper
+    function scrollToId(id){
+      const el = document.getElementById(id);
+      if(!el) return;
+      window.scrollTo({top: el.offsetTop - 70, behavior:'smooth'});
+    }
+    window.scrollToId = scrollToId;
+
+    // ---------- Scroll reveal avanzado con stagger y delays ----------
+    const revealEls = [...document.querySelectorAll('.reveal')];
+    const io = new IntersectionObserver((entries)=>{
+      entries.forEach(e=>{
+        if(e.isIntersecting){
+          const delay = e.target.style.getPropertyValue('--delay') || 0;
+          e.target.style.transitionDelay = delay;
+          e.target.classList.add('visible');
+          io.unobserve(e.target);
+        }
+      });
+    },{threshold: .16});
+    revealEls.forEach((el, idx)=>{
+      // Stagger automático dentro de contenedores
+      if(el.parentElement && el.parentElement.classList.contains('parks')){
+        el.style.setProperty('--delay', `${(idx%3)*0.06}s`);
+      }
+      io.observe(el);
+    });
+
+    // ---------- Parallax suave en hero ----------
+    const heroImg = document.getElementById('heroImg');
+    let lastY = 0;
+    function onScroll(){
+      const y = window.scrollY || window.pageYOffset;
+      const delta = Math.min(60, Math.max(0, y*0.15));
+      if(Math.abs(delta - lastY) > 0.5){
+        heroImg.style.transform = `translateY(${delta}px) scale(1.05)`;
+        lastY = delta;
+      }
+    }
+    window.addEventListener('scroll', onScroll, {passive:true});
+
+    // Tilt/parallax en tarjetas de parques con mouse
+    const parkCards = document.querySelectorAll('.park');
+    parkCards.forEach(card=>{
+      const img = card.querySelector('img');
+      let raf;
+      function handleMove(e){
+        const rect = card.getBoundingClientRect();
+        const x = (e.clientX - rect.left) / rect.width - 0.5;
+        const y = (e.clientY - rect.top) / rect.height - 0.5;
+        cancelAnimationFrame(raf);
+        raf = requestAnimationFrame(()=>{
+          img.style.transform = `rotateX(${y*-6}deg) rotateY(${x*6}deg) scale(1.08)`;
+        });
+      }
+      function reset(){ img.style.transform = 'rotateX(0deg) rotateY(0deg) scale(1.03)'; }
+      card.addEventListener('mousemove', handleMove);
+      card.addEventListener('mouseleave', reset);
+    });
+
+    // Contact form -> genera mailto y WhatsApp dinámico (reemplaza con tu número y correo)
+    const EMAIL_TO = 'contacto@zonafrancagenesis.com'; // <-- cambia por tu correo
+    const WHATS_NUMBER = '50670000000'; // <-- cambia a tu número en formato internacional sin +
+
+    function submitContact(evt){
+      evt.preventDefault();
+      const name = document.getElementById('name').value.trim();
+      const company = document.getElementById('company').value.trim();
+      const email = document.getElementById('email').value.trim();
+      const phone = document.getElementById('phone').value.trim();
+      const message = document.getElementById('message').value.trim();
+
+      const subject = encodeURIComponent('Consulta — Zona Franca Génesis');
+      const body = encodeURIComponent(`Nombre: ${name}\nEmpresa: ${company}\nCorreo: ${email}\nTeléfono: ${phone}\n\nMensaje:\n${message}`);
+      const mailto = `mailto:${EMAIL_TO}?subject=${subject}&body=${body}`;
+      window.location.href = mailto; // abre cliente de correo
+
+      const note = document.getElementById('formMsg');
+      if(note) note.style.display = 'block';
+      return false;
+    }
+
+    // WhatsApp link dinámico con mensaje prellenado
+    const whatsBtn = document.getElementById('whatsBtn');
+    if(whatsBtn){
+      whatsBtn.addEventListener('click', ()=>{
+        const name = document.getElementById('name').value.trim() || '—';
+        const company = document.getElementById('company').value.trim() || '—';
+        const msg = document.getElementById('message').value.trim() || 'Hola, deseo más información.';
+        const text = encodeURIComponent(`Hola, soy ${name} de ${company}. ${msg}`);
+        whatsBtn.href = `https://wa.me/${WHATS_NUMBER}?text=${text}`;
+      });
+    }
+  </script>
+</body>
+</html>
